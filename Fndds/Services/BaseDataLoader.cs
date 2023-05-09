@@ -1,6 +1,4 @@
-﻿namespace Fndds.Services;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
 using System.Threading.Tasks;
@@ -9,6 +7,8 @@ using Fndds.Interfaces;
 using Fndds.Models;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
+
+namespace Fndds.Services;
 
 /// <summary>
 /// The class contains functionality for loading data from the source database into
@@ -74,10 +74,17 @@ public abstract class BaseDataLoader
 
             _logger.LogDebug("SQL for table {tableName}: {sql}", TableName, sql);
 
-            using var command = new OleDbCommand(sql, Connection);
-            using var reader = command.ExecuteReader();
+            try
+            {
+                using var command = new OleDbCommand(sql, Connection);
+                using var reader = command.ExecuteReader();
 
-            recordCount = await CreateRecordsAsync(columns, reader);
+                recordCount = await CreateRecordsAsync(columns, reader);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Failed to create the records for table {tableName}.", TableName);
+            }
         }
 
         return recordCount;
@@ -101,7 +108,7 @@ public abstract class BaseDataLoader
             }
 
             var value = reader.GetValue(index++);
-            if (value != null)
+            if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
             {
                 var type = model.GetType();
                 var property = type.GetProperty(column.DestinationName);
@@ -111,7 +118,7 @@ public abstract class BaseDataLoader
                 {
                     if (DateTime.TryParse(value.ToString(), out var dateTimeValue) == false)
                     {
-                        throw new Exception($"Unable to parse date/time value {value}.");
+                        throw new Exception($"Unable to parse date/time value {value} for column {column.SourceName}.");
                     }
 
                     property.SetValue(model, dateTimeValue);
@@ -120,7 +127,7 @@ public abstract class BaseDataLoader
                 {
                     if (decimal.TryParse(value.ToString(), out var decimalValue) == false)
                     {
-                        throw new Exception($"Unable to parse decimal value {value}.");
+                        throw new Exception($"Unable to parse decimal value {value} for column {column.SourceName}.");
                     }
 
                     property.SetValue(model, decimalValue);
@@ -129,7 +136,7 @@ public abstract class BaseDataLoader
                 {
                     if (int.TryParse(value.ToString(), out var intValue) == false)
                     {
-                        throw new Exception($"Unable to parse integer value {value}.");
+                        throw new Exception($"Unable to parse integer value for column {column.SourceName}.");
                     }
 
                     property.SetValue(model, intValue);

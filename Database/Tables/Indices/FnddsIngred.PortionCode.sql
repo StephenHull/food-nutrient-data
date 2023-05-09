@@ -1,0 +1,1 @@
+﻿CREATE INDEX IDX_PortionCode ON [dbo].FnddsIngred (PortionCode)

@@ -1,8 +1,8 @@
-﻿namespace Fndds.Extensions;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using Fndds.Models;
+
+namespace Fndds.Extensions;
 
 /// <summary>
 /// This class contains utility methods for building SQL statements.

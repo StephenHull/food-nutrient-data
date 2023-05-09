@@ -7,6 +7,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Databa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fndds", "Fndds\Fndds.csproj", "{D69897A8-55F7-4806-83D4-5073DA50B1F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FnddsLoader", "FnddsLoader\FnddsLoader.csproj", "{C4CF5CF7-9AA2-4EAE-A2F2-BA1D51BC7043}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{D69897A8-55F7-4806-83D4-5073DA50B1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D69897A8-55F7-4806-83D4-5073DA50B1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D69897A8-55F7-4806-83D4-5073DA50B1F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4CF5CF7-9AA2-4EAE-A2F2-BA1D51BC7043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4CF5CF7-9AA2-4EAE-A2F2-BA1D51BC7043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4CF5CF7-9AA2-4EAE-A2F2-BA1D51BC7043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4CF5CF7-9AA2-4EAE-A2F2-BA1D51BC7043}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

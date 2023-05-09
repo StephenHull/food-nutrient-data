@@ -1,4 +1,4 @@
-﻿ALTER TABLE [dbo].FoodWeights
-ADD CONSTRAINT FK_FoodWeights_MainFoodDesc
+﻿ALTER TABLE [dbo].FnddsIngred
+ADD CONSTRAINT FK_FnddsIngred_MainFoodDesc
 	FOREIGN KEY (FoodCode, [Version])
 	REFERENCES [dbo].MainFoodDesc (FoodCode, [Version]) ON DELETE CASCADE

@@ -1,6 +1,6 @@
-﻿namespace Fndds.Interfaces;
+﻿using System;
 
-using System;
+namespace Fndds.Interfaces;
 
 public interface IFnddsVersion
 {

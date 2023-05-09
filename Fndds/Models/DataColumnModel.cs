@@ -1,6 +1,6 @@
-﻿namespace Fndds.Models;
+﻿using System.Collections.Generic;
 
-using System.Collections.Generic;
+namespace Fndds.Models;
 
 /// <summary>
 /// This class represents a column in a database.

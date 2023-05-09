@@ -76,13 +76,12 @@
     <Build Include="Tables\MoistNFatAdjust.sql" />
     <Build Include="Tables\Indices\MoistNFatAdjust.FoodCode.sql" />
     <Build Include="Tables\ForeignKeys\MoistNFatAdjust.MainFoodDesc.sql" />
-    <Build Include="Tables\FnddsSrLinks.sql" />
-    <Build Include="Tables\Indices\FnddsSrLinks.PortionCode.sql" />
-    <Build Include="Tables\Indices\FnddsSrLinks.SrCode.sql" />
-    <Build Include="Tables\Indices\FnddsSrLinks.Weight.sql" />
-    <Build Include="Tables\ForeignKeys\FnddsSrLinks.FoodPortionDesc.sql" />
-    <Build Include="Tables\ForeignKeys\FnddsSrLinks.MainFoodDesc.sql" />
-    <Build Include="Tables\FnddsNutVal.sql" />
+    <Build Include="Tables\FnddsIngred.sql" />
+    <Build Include="Tables\Indices\FnddsIngred.PortionCode.sql" />
+    <Build Include="Tables\Indices\FnddsIngred.IngredientCode.sql" />
+    <Build Include="Tables\Indices\FnddsIngred.Weight.sql" />
+    <Build Include="Tables\ForeignKeys\FnddsIngred.FoodPortionDesc.sql" />
+    <Build Include="Tables\ForeignKeys\FnddsIngred.MainFoodDesc.sql" />
     <Build Include="Tables\Indices\FnddsNutVal.NutrientValue.sql" />
     <Build Include="Tables\ForeignKeys\FnddsNutVal.MainFoodDesc.sql" />
     <Build Include="Tables\ForeignKeys\FnddsNutVal.NutDesc.sql" />
@@ -91,7 +90,9 @@
     <Build Include="Tables\ForeignKeys\FoodPortionDesc.FnddsVersion.sql" />
     <Build Include="Tables\ForeignKeys\SubcodeDesc.FnddsVersion.sql" />
     <Build Include="Tables\ForeignKeys\NutDesc.FnddsVersion.sql" />
-    <Build Include="Tables\ForeignKeys\FoodWeights.SubcodeDesc.sql" />
+    <Build Include="Tables\FnddsNutVal.sql" />
+    <Build Include="Tables\IngredNutVal.sql" />
+    <Build Include="Tables\ForeignKeys\IngredNutVal.NutDesc.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Debug.publish.xml" />
