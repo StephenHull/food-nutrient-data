@@ -86,6 +86,7 @@ public class FnddsLoader
         var loaders =
             new List<DataLoader>
             {
+                new DerivDescLoader(version, connection, context),
                 new FoodPortionDescLoader(version, connection, context),
                 new MainFoodDescLoader(version, connection, context),
                 new AddFoodDescLoader(version, connection, context),

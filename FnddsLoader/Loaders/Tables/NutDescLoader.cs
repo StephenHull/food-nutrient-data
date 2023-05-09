@@ -104,7 +104,7 @@ public class NutDescLoader : DataLoader
 
             if (_isDebugEnabled)
             {
-                _logger.LogDebug("Table: {tableName}, Nutrient code: {nutrientKaren}", SourceTableName,
+                _logger.LogDebug("Table: {tableName}, Nutrient code: {nutrientCode}", SourceTableName,
                     nutrient.NutrientCode);
             }
 

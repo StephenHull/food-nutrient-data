@@ -8,6 +8,7 @@ public partial class FnddsContext : DbContext
     public FnddsContext() : base("name=Fndds") { }
 
     public virtual DbSet<AddFoodDesc> AddFoodDesc { get; set; }
+    public virtual DbSet<DerivDesc> DerivDesc { get; set; }
     public virtual DbSet<FnddsIngred> FnddsIngred { get; set; }
     public virtual DbSet<FnddsNutVal> FnddsNutVal { get; set; }
     public virtual DbSet<FnddsVersion> FnddsVersion { get; set; }
@@ -23,6 +24,14 @@ public partial class FnddsContext : DbContext
     {
         modelBuilder.Entity<AddFoodDesc>()
             .Property(e => e.AdditionalFoodDescription)
+            .IsUnicode(false);
+
+        modelBuilder.Entity<DerivDesc>()
+            .Property(e => e.DerivationCode)
+            .IsUnicode(false);
+
+        modelBuilder.Entity<DerivDesc>()
+            .Property(e => e.DerivationDescription)
             .IsUnicode(false);
 
         modelBuilder.Entity<FnddsIngred>()
@@ -56,6 +65,11 @@ public partial class FnddsContext : DbContext
         modelBuilder.Entity<FnddsNutVal>()
             .Property(e => e.NutrientValue)
             .HasPrecision(10, 3);
+
+        modelBuilder.Entity<FnddsVersion>()
+            .HasMany(e => e.DerivDesc)
+            .WithRequired(e => e.FnddsVersion)
+            .HasForeignKey(e => e.Version);
 
         modelBuilder.Entity<FnddsVersion>()
             .HasMany(e => e.FoodPortionDesc)

@@ -10,6 +10,7 @@ public class FnddsVersion : IFnddsVersion
 {
     public FnddsVersion()
     {
+        DerivDesc = new HashSet<DerivDesc>();
         FoodPortionDesc = new HashSet<FoodPortionDesc>();
         MainFoodDesc = new HashSet<MainFoodDesc>();
         NutDesc = new HashSet<NutDesc>();
@@ -28,6 +29,8 @@ public class FnddsVersion : IFnddsVersion
     public int? Minor { get; set; }
 
     public DateTime Created { get; set; }
+
+    public virtual ICollection<DerivDesc> DerivDesc { get; set; }
 
     public virtual ICollection<FoodPortionDesc> FoodPortionDesc { get; set; }
 

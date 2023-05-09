@@ -106,6 +106,7 @@
   <ItemGroup>
     <Compile Include="Data\FnddsContext.cs" />
     <Compile Include="Data\Models\AddFoodDesc.cs" />
+    <Compile Include="Data\Models\DerivDesc.cs" />
     <Compile Include="Data\Models\FnddsNutVal.cs" />
     <Compile Include="Data\Models\FnddsIngred.cs" />
     <Compile Include="Data\Models\FnddsVersion.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="FnddsLoader.cs" />
     <Compile Include="Loaders\DataLoader.cs" />
     <Compile Include="Loaders\Tables\AddFoodDescLoader.cs" />
+    <Compile Include="Loaders\Tables\DerivDescLoader.cs" />
     <Compile Include="Loaders\Tables\FnddsNutValLoader.cs" />
     <Compile Include="Loaders\Tables\FnddsIngredLoader.cs" />
     <Compile Include="Loaders\Tables\FoodPortionDescLoader.cs" />

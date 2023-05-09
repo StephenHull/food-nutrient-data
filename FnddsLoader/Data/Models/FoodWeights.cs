@@ -15,7 +15,7 @@ public partial class FoodWeights
     [Key]
     [Column(Order = 1)]
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    public int Subcode { get; set; } = 0;
+    public int Subcode { get; set; }
 
     [Key]
     [Column(Order = 2)]
