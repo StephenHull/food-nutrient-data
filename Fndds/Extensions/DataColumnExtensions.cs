@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
 using System.Text;
-using Fndds.Models;
+using FnddsData.Fndds.Models;
 
-namespace Fndds.Extensions;
+namespace FnddsData.Fndds.Extensions;
 
 /// <summary>
 /// This class contains utility methods for building SQL statements.
@@ -21,7 +20,7 @@ public static class DataColumnExtensions
         var selectColumns = new StringBuilder();
         var orderByColumns = new StringBuilder();
 
-        foreach (DataColumnModel column in columns)
+        foreach (var column in columns)
         {
             if (selectColumns.Length > 0)
             {

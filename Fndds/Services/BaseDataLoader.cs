@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Threading.Tasks;
-using Fndds.Extensions;
-using Fndds.Interfaces;
-using Fndds.Models;
+using FnddsData.Fndds.Extensions;
+using FnddsData.Fndds.Interfaces;
+using FnddsData.Fndds.Models;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace Fndds.Services;
+namespace FnddsData.Fndds.Services;
 
 /// <summary>
 /// The class contains functionality for loading data from the source database into
@@ -37,6 +34,11 @@ public abstract class BaseDataLoader
     public abstract OleDbConnection Connection { get; set; }
 
     /// <summary>
+    /// The FNDDS version.
+    /// </summary>
+    public abstract IFnddsVersion FnddsVersion { get; set; }
+
+    /// <summary>
     /// Creates records in the destination database based on data from the source
     /// database.
     /// </summary>
@@ -46,9 +48,9 @@ public abstract class BaseDataLoader
     public abstract Task<int> CreateRecordsAsync(IEnumerable<DataColumnModel> columns, OleDbDataReader reader);
 
     /// <summary>
-    /// The FNDDS version.
+    /// Gets the source database table name.
     /// </summary>
-    public abstract IFnddsVersion FnddsVersion { get; set; }
+    public abstract string TableName { get; }
 
     /// <summary>
     /// Load the data from the source database into the destination database.
@@ -96,11 +98,11 @@ public abstract class BaseDataLoader
     /// <param name="columns">The database column descriptions.</param>
     /// <param name="reader">The source database data reader.</param>
     /// <param name="model">The data model.</param>
-    public void SetModelValues(IEnumerable<DataColumnModel> columns, OleDbDataReader reader, object model)
+    public static void SetModelValues(IEnumerable<DataColumnModel> columns, OleDbDataReader reader, object model)
     {
         var index = 0;
 
-        foreach (DataColumnModel column in columns)
+        foreach (var column in columns)
         {
             if (column.IsIgnored)
             {
@@ -112,6 +114,11 @@ public abstract class BaseDataLoader
             {
                 var type = model.GetType();
                 var property = type.GetProperty(column.DestinationName);
+                if (property == null)
+                {
+                    throw new Exception($"Unable to get properties for column {column.DestinationName}.");
+                }
+
                 var propertyType = property.PropertyType;
 
                 if (propertyType == typeof(DateTime))
@@ -156,9 +163,4 @@ public abstract class BaseDataLoader
             }
         }
     }
-
-    /// <summary>
-    /// Gets the source database table name.
-    /// </summary>
-    public abstract string TableName { get; }
 }

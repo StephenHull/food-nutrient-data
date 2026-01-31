@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Fndds.Models;
+namespace FnddsData.Fndds.Models;
 
 /// <summary>
 /// This class represents a column in a database.
@@ -10,12 +8,12 @@ public class DataColumnModel
     /// <summary>
     /// The column name in the source database.
     /// </summary>
-    public string SourceName { get; set; }
+    public string SourceName { get; set; } = default!;
 
     /// <summary>
     /// The column name in the destination database.
     /// </summary>
-    public string DestinationName { get; set; }
+    public string DestinationName { get; set; } = default!;
 
     /// <summary>
     /// True if this column should be ignored when setting model values to be
@@ -32,5 +30,5 @@ public class DataColumnModel
     /// <summary>
     /// The versions for which this column is applicable.
     /// </summary>
-    public HashSet<int> Versions { get; set; }
+    public HashSet<int> Versions { get; set; } = default!;
 }
