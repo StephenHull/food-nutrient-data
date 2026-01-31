@@ -1,0 +1,256 @@
+﻿[
+   {
+      "ColumnPatternReplaceWith": "",
+      "ColumnRegexPattern": "^(tbl)",
+      "SchemaName": "dbo",
+      "TablePatternReplaceWith": "",
+      "TableRegexPattern": "^(tbl)",
+      "Tables": [
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "StartDT",
+                  "NewName": "StartDt"
+               },
+               {
+                  "Name": "EndDT",
+                  "NewName": "EndDt"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "AddFoodDesc",
+            "NewName": "AddFoodDescription"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "DerivDesc",
+            "NewName": "DerivDescription"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "StartDT",
+                  "NewName": "StartDt"
+               },
+               {
+                  "Name": "EndDT",
+                  "NewName": "EndDt"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "FnddsIngred",
+            "NewName": "FnddsIngredient"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "StartDT",
+                  "NewName": "StartDt"
+               },
+               {
+                  "Name": "EndDT",
+                  "NewName": "EndDt"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "FnddsNutVal",
+            "NewName": "FnddsNutrientValue"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "ID",
+                  "NewName": "Id"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "FnddsVersion",
+            "NewName": "FnddsVersion"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "StartDT",
+                  "NewName": "StartDt"
+               },
+               {
+                  "Name": "EndDT",
+                  "NewName": "EndDt"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "FoodPortionDesc",
+            "NewName": "FoodPortionDescription"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "StartDT",
+                  "NewName": "StartDt"
+               },
+               {
+                  "Name": "EndDT",
+                  "NewName": "EndDt"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "FoodWeight",
+            "NewName": "FoodWeight"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "StartDT",
+                  "NewName": "StartDt"
+               },
+               {
+                  "Name": "EndDT",
+                  "NewName": "EndDt"
+               },
+               {
+                  "Name": "FdcID",
+                  "NewName": "FdcId"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "IngredNutVal",
+            "NewName": "IngredNutrientValue"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "StartDT",
+                  "NewName": "StartDt"
+               },
+               {
+                  "Name": "EndDT",
+                  "NewName": "EndDt"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "MainFoodDesc",
+            "NewName": "MainFoodDescription"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "StartDT",
+                  "NewName": "StartDt"
+               },
+               {
+                  "Name": "EndDT",
+                  "NewName": "EndDt"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "MoistNFatAdjust",
+            "NewName": "MoistureFatAdjustment"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "NutDesc",
+            "NewName": "NutrientDescription"
+         },
+         {
+            "Columns": [
+               {
+                  "Name": "VersionID",
+                  "NewName": "VersionId"
+               },
+               {
+                  "Name": "StartDT",
+                  "NewName": "StartDt"
+               },
+               {
+                  "Name": "EndDT",
+                  "NewName": "EndDt"
+               },
+               {
+                  "Name": "CreateDT",
+                  "NewName": "CreateDt"
+               }
+            ],
+            "Name": "SubcodeDesc",
+            "NewName": "SubcodeDescription"
+         }
+      ],
+      "UseSchemaName": false
+   }
+]

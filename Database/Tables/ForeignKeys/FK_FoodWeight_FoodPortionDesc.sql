@@ -3,10 +3,10 @@ ADD CONSTRAINT FK_FoodWeight_FoodPortionDesc
     FOREIGN KEY
     (
         PortionCode,
-        [Version]
+        VersionID
     )
     REFERENCES [dbo].FoodPortionDesc
     (
         PortionCode,
-        [Version]
+        VersionID
     )

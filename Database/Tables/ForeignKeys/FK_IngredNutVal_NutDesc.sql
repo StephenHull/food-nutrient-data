@@ -3,10 +3,10 @@ ADD CONSTRAINT FK_IngredNutVal_NutDesc
     FOREIGN KEY
     (
         NutrientCode,
-        [Version]
+        VersionID
     )
     REFERENCES [dbo].NutDesc
     (
         NutrientCode,
-        [Version]
+        VersionID
     ) ON DELETE CASCADE

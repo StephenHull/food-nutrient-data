@@ -5,6 +5,6 @@
     EndYear INT NOT NULL,
     Major INT NULL,
     Minor INT NULL,
-    CreatedDT DATETIME2
+    CreateDT DATETIME2
         DEFAULT GETUTCDATE() NOT NULL,
 )

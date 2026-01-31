@@ -3,10 +3,10 @@ ADD CONSTRAINT FK_FnddsNutVal_MainFoodDesc
     FOREIGN KEY
     (
         FoodCode,
-        [Version]
+        VersionID
     )
     REFERENCES [dbo].MainFoodDesc
     (
         FoodCode,
-        [Version]
+        VersionID
     ) ON DELETE CASCADE

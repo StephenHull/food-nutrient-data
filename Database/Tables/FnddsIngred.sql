@@ -3,7 +3,7 @@
     FoodCode INT,
     SeqNum INT,
     IngredientCode INT,
-    [Version] INT,
+    VersionID INT,
     StartDT DATETIME2 NULL,
     EndDT DATETIME2 NULL,
     IngredientDescription VARCHAR(255) NOT NULL,
@@ -13,10 +13,10 @@
     RetentionCode INT NULL,
     Flag INT NULL,
     IngredientWeight DECIMAL(11, 3) NOT NULL,
-    ChangeTypeToSrCode VARCHAR(1) NULL,
+    ChangeTypeToSRCode VARCHAR(1) NULL,
     ChangeTypeToWeight VARCHAR(1) NULL,
     ChangeTypeToRetnCode VARCHAR(1) NULL,
-    CreatedDT DATETIME2
+    CreateDT DATETIME2
         DEFAULT GETUTCDATE() NOT NULL,
     CONSTRAINT PK_FnddsIngred
         PRIMARY KEY
@@ -24,6 +24,6 @@
             FoodCode,
             SeqNum,
             IngredientCode,
-            [Version]
+            VersionID
         )
 )

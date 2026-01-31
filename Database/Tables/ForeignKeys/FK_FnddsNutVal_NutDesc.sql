@@ -3,10 +3,10 @@ ADD CONSTRAINT FK_FnddsNutVal_NutDesc
     FOREIGN KEY
     (
         NutrientCode,
-        [Version]
+        VersionID
     )
     REFERENCES [dbo].NutDesc
     (
         NutrientCode,
-        [Version]
+        VersionID
     )

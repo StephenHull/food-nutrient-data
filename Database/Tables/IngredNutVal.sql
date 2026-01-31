@@ -2,7 +2,7 @@
 (
     IngredientCode INT,
     NutrientCode INT,
-    [Version] INT,
+    VersionID INT,
     StartDT DATETIME2 NULL,
     EndDT DATETIME2 NULL,
     IngredientDescription VARCHAR(200) NOT NULL,
@@ -10,15 +10,15 @@
     NutrientValueSource VARCHAR(80) NOT NULL,
     FdcID INT NULL,
     DerivationCode VARCHAR(4) NULL,
-    SrAddModYear INT NULL,
+    SRAddModYear INT NULL,
     FoundationYearAcquired INT NULL,
-    CreatedDT DATETIME2
+    CreateDT DATETIME2
         DEFAULT GETUTCDATE() NOT NULL,
     CONSTRAINT PK_IngredNutVal
         PRIMARY KEY
         (
             IngredientCode,
             NutrientCode,
-            [Version]
+            VersionID
         )
 )

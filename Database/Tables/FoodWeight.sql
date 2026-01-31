@@ -5,12 +5,12 @@
         DEFAULT 0,
     SeqNum INT,
     PortionCode INT,
-    [Version] INT,
+    VersionID INT,
     StartDT DATETIME2 NULL,
     EndDT DATETIME2 NULL,
     PortionWeight DECIMAL(8, 3) NOT NULL,
     ChangeType VARCHAR(1) NULL,
-    CreatedDT DATETIME2
+    CreateDT DATETIME2
         DEFAULT GETUTCDATE() NOT NULL,
     CONSTRAINT PK_FoodWeight
         PRIMARY KEY
@@ -19,6 +19,6 @@
             SubCode,
             SeqNum,
             PortionCode,
-            [Version]
+            VersionID
         )
 )
