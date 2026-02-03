@@ -26,7 +26,7 @@
                }
             ],
             "Name": "AddFoodDesc",
-            "NewName": "AddFoodDescription"
+            "NewName": "AddFoodDesc"
          },
          {
             "Columns": [
@@ -40,7 +40,7 @@
                }
             ],
             "Name": "DerivDesc",
-            "NewName": "DerivDescription"
+            "NewName": "DerivDesc"
          },
          {
             "Columns": [
@@ -62,7 +62,7 @@
                }
             ],
             "Name": "FnddsIngred",
-            "NewName": "FnddsIngredient"
+            "NewName": "FnddsIngred"
          },
          {
             "Columns": [
@@ -84,7 +84,7 @@
                }
             ],
             "Name": "FnddsNutVal",
-            "NewName": "FnddsNutrientValue"
+            "NewName": "FnddsNutVal"
          },
          {
             "Columns": [
@@ -120,7 +120,7 @@
                }
             ],
             "Name": "FoodPortionDesc",
-            "NewName": "FoodPortionDescription"
+            "NewName": "FoodPortionDesc"
          },
          {
             "Columns": [
@@ -168,7 +168,7 @@
                }
             ],
             "Name": "IngredNutVal",
-            "NewName": "IngredNutrientValue"
+            "NewName": "IngredNutVal"
          },
          {
             "Columns": [
@@ -190,7 +190,7 @@
                }
             ],
             "Name": "MainFoodDesc",
-            "NewName": "MainFoodDescription"
+            "NewName": "MainFoodDesc"
          },
          {
             "Columns": [
@@ -212,7 +212,7 @@
                }
             ],
             "Name": "MoistNFatAdjust",
-            "NewName": "MoistureFatAdjustment"
+            "NewName": "MoistNFatAdjust"
          },
          {
             "Columns": [
@@ -226,7 +226,7 @@
                }
             ],
             "Name": "NutDesc",
-            "NewName": "NutrientDescription"
+            "NewName": "NutDesc"
          },
          {
             "Columns": [
@@ -248,7 +248,7 @@
                }
             ],
             "Name": "SubcodeDesc",
-            "NewName": "SubcodeDescription"
+            "NewName": "SubcodeDesc"
          }
       ],
       "UseSchemaName": false

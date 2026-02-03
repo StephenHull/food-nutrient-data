@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace FnddsData.FnddsLoader.Entities;
 
-public partial class NutrientDescription
+public partial class NutDesc
 {
     public int NutrientCode { get; set; }
 
     public int VersionId { get; set; }
 
-    public string NutrientDescription1 { get; set; }
+    public string NutrientDescription { get; set; }
 
     public string Tagname { get; set; }
 
@@ -21,9 +21,9 @@ public partial class NutrientDescription
 
     public DateTime CreateDt { get; set; }
 
-    public virtual ICollection<FnddsNutrientValue> FnddsNutrientValues { get; set; } = new List<FnddsNutrientValue>();
+    public virtual ICollection<FnddsNutVal> FnddsNutVals { get; set; } = new List<FnddsNutVal>();
 
-    public virtual ICollection<IngredNutrientValue> IngredNutrientValues { get; set; } = new List<IngredNutrientValue>();
+    public virtual ICollection<IngredNutVal> IngredNutVals { get; set; } = new List<IngredNutVal>();
 
     public virtual FnddsVersion Version { get; set; }
 }

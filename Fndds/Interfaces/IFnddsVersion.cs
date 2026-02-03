@@ -12,5 +12,5 @@ public interface IFnddsVersion
 
     int? Minor { get; set; }
 
-    DateTime Created { get; set; }
+    DateTime CreateDt { get; set; }
 }

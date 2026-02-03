@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FnddsData.FnddsLoader.Entities;
 
-public partial class DerivDescription
+public partial class DerivDesc
 {
     public string DerivationCode { get; set; }
 

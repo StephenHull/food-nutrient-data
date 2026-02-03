@@ -14,33 +14,33 @@ public partial class FnddsDbContext : DbContext
     {
     }
 
-    public virtual DbSet<AddFoodDescription> AddFoodDescriptions { get; set; }
+    public virtual DbSet<AddFoodDesc> AddFoodDescs { get; set; }
 
-    public virtual DbSet<DerivDescription> DerivDescriptions { get; set; }
+    public virtual DbSet<DerivDesc> DerivDescs { get; set; }
 
-    public virtual DbSet<FnddsIngredient> FnddsIngredients { get; set; }
+    public virtual DbSet<FnddsIngred> FnddsIngreds { get; set; }
 
-    public virtual DbSet<FnddsNutrientValue> FnddsNutrientValues { get; set; }
+    public virtual DbSet<FnddsNutVal> FnddsNutVals { get; set; }
 
     public virtual DbSet<FnddsVersion> FnddsVersions { get; set; }
 
-    public virtual DbSet<FoodPortionDescription> FoodPortionDescriptions { get; set; }
+    public virtual DbSet<FoodPortionDesc> FoodPortionDescs { get; set; }
 
     public virtual DbSet<FoodWeight> FoodWeights { get; set; }
 
-    public virtual DbSet<IngredNutrientValue> IngredNutrientValues { get; set; }
+    public virtual DbSet<IngredNutVal> IngredNutVals { get; set; }
 
-    public virtual DbSet<MainFoodDescription> MainFoodDescriptions { get; set; }
+    public virtual DbSet<MainFoodDesc> MainFoodDescs { get; set; }
 
-    public virtual DbSet<MoistureFatAdjustment> MoistureFatAdjustments { get; set; }
+    public virtual DbSet<MoistNFatAdjust> MoistNFatAdjusts { get; set; }
 
-    public virtual DbSet<NutrientDescription> NutrientDescriptions { get; set; }
+    public virtual DbSet<NutDesc> NutDescs { get; set; }
 
-    public virtual DbSet<SubcodeDescription> SubcodeDescriptions { get; set; }
+    public virtual DbSet<SubcodeDesc> SubcodeDescs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AddFoodDescription>(entity =>
+        modelBuilder.Entity<AddFoodDesc>(entity =>
         {
             entity.HasKey(e => new { e.FoodCode, e.SeqNum, e.VersionId });
 
@@ -59,12 +59,12 @@ public partial class FnddsDbContext : DbContext
             entity.Property(e => e.EndDt).HasColumnName("EndDT");
             entity.Property(e => e.StartDt).HasColumnName("StartDT");
 
-            entity.HasOne(d => d.MainFoodDescription).WithMany(p => p.AddFoodDescriptions)
+            entity.HasOne(d => d.MainFoodDesc).WithMany(p => p.AddFoodDescs)
                 .HasForeignKey(d => new { d.FoodCode, d.VersionId })
                 .HasConstraintName("FK_AddFoodDesc_MainFoodDesc");
         });
 
-        modelBuilder.Entity<DerivDescription>(entity =>
+        modelBuilder.Entity<DerivDesc>(entity =>
         {
             entity.HasKey(e => new { e.DerivationCode, e.VersionId });
 
@@ -82,12 +82,12 @@ public partial class FnddsDbContext : DbContext
                 .HasMaxLength(120)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.Version).WithMany(p => p.DerivDescriptions)
+            entity.HasOne(d => d.Version).WithMany(p => p.DerivDescs)
                 .HasForeignKey(d => d.VersionId)
                 .HasConstraintName("FK_DerivDesc_FnddsVersion");
         });
 
-        modelBuilder.Entity<FnddsIngredient>(entity =>
+        modelBuilder.Entity<FnddsIngred>(entity =>
         {
             entity.HasKey(e => new { e.FoodCode, e.SeqNum, e.IngredientCode, e.VersionId });
 
@@ -124,16 +124,16 @@ public partial class FnddsDbContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.StartDt).HasColumnName("StartDT");
 
-            entity.HasOne(d => d.MainFoodDescription).WithMany(p => p.FnddsIngredients)
+            entity.HasOne(d => d.MainFoodDesc).WithMany(p => p.FnddsIngreds)
                 .HasForeignKey(d => new { d.FoodCode, d.VersionId })
                 .HasConstraintName("FK_FnddsIngred_MainFoodDesc");
 
-            entity.HasOne(d => d.FoodPortionDescription).WithMany(p => p.FnddsIngredients)
+            entity.HasOne(d => d.FoodPortionDesc).WithMany(p => p.FnddsIngreds)
                 .HasForeignKey(d => new { d.PortionCode, d.VersionId })
                 .HasConstraintName("FK_FnddsIngred_FoodPortionDesc");
         });
 
-        modelBuilder.Entity<FnddsNutrientValue>(entity =>
+        modelBuilder.Entity<FnddsNutVal>(entity =>
         {
             entity.HasKey(e => new { e.FoodCode, e.NutrientCode, e.VersionId });
 
@@ -149,11 +149,11 @@ public partial class FnddsDbContext : DbContext
             entity.Property(e => e.NutrientValue).HasColumnType("decimal(10, 3)");
             entity.Property(e => e.StartDt).HasColumnName("StartDT");
 
-            entity.HasOne(d => d.MainFoodDescription).WithMany(p => p.FnddsNutrientValues)
+            entity.HasOne(d => d.MainFoodDesc).WithMany(p => p.FnddsNutVals)
                 .HasForeignKey(d => new { d.FoodCode, d.VersionId })
                 .HasConstraintName("FK_FnddsNutVal_MainFoodDesc");
 
-            entity.HasOne(d => d.NutrientDescription).WithMany(p => p.FnddsNutrientValues)
+            entity.HasOne(d => d.NutDesc).WithMany(p => p.FnddsNutVals)
                 .HasForeignKey(d => new { d.NutrientCode, d.VersionId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_FnddsNutVal_NutDesc");
@@ -173,7 +173,7 @@ public partial class FnddsDbContext : DbContext
                 .HasColumnName("CreateDT");
         });
 
-        modelBuilder.Entity<FoodPortionDescription>(entity =>
+        modelBuilder.Entity<FoodPortionDesc>(entity =>
         {
             entity.HasKey(e => new { e.PortionCode, e.VersionId });
 
@@ -193,7 +193,7 @@ public partial class FnddsDbContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.StartDt).HasColumnName("StartDT");
 
-            entity.HasOne(d => d.Version).WithMany(p => p.FoodPortionDescriptions)
+            entity.HasOne(d => d.Version).WithMany(p => p.FoodPortionDescs)
                 .HasForeignKey(d => d.VersionId)
                 .HasConstraintName("FK_FoodPortionDesc_FnddsVersion");
         });
@@ -217,17 +217,17 @@ public partial class FnddsDbContext : DbContext
             entity.Property(e => e.PortionWeight).HasColumnType("decimal(8, 3)");
             entity.Property(e => e.StartDt).HasColumnName("StartDT");
 
-            entity.HasOne(d => d.MainFoodDescription).WithMany(p => p.FoodWeights)
+            entity.HasOne(d => d.MainFoodDesc).WithMany(p => p.FoodWeights)
                 .HasForeignKey(d => new { d.FoodCode, d.VersionId })
                 .HasConstraintName("FK_FoodWeight_MainFoodDesc");
 
-            entity.HasOne(d => d.FoodPortionDescription).WithMany(p => p.FoodWeights)
+            entity.HasOne(d => d.FoodPortionDesc).WithMany(p => p.FoodWeights)
                 .HasForeignKey(d => new { d.PortionCode, d.VersionId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_FoodWeight_FoodPortionDesc");
         });
 
-        modelBuilder.Entity<IngredNutrientValue>(entity =>
+        modelBuilder.Entity<IngredNutVal>(entity =>
         {
             entity.HasKey(e => new { e.IngredientCode, e.NutrientCode, e.VersionId });
 
@@ -253,18 +253,18 @@ public partial class FnddsDbContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.StartDt).HasColumnName("StartDT");
 
-            entity.HasOne(d => d.NutrientDescription).WithMany(p => p.IngredNutrientValues)
+            entity.HasOne(d => d.NutDesc).WithMany(p => p.IngredNutVals)
                 .HasForeignKey(d => new { d.NutrientCode, d.VersionId })
                 .HasConstraintName("FK_IngredNutVal_NutDesc");
         });
 
-        modelBuilder.Entity<MainFoodDescription>(entity =>
+        modelBuilder.Entity<MainFoodDesc>(entity =>
         {
             entity.HasKey(e => new { e.FoodCode, e.VersionId });
 
             entity.ToTable("MainFoodDesc");
 
-            entity.HasIndex(e => e.MainFoodDescription1, "IX_MainFoodDesc_MainFoodDescription");
+            entity.HasIndex(e => e.MainFoodDescription, "IX_MainFoodDesc_MainFoodDescription");
 
             entity.Property(e => e.VersionId).HasColumnName("VersionID");
             entity.Property(e => e.AbbreviatedMainFoodDescription)
@@ -280,19 +280,18 @@ public partial class FnddsDbContext : DbContext
             entity.Property(e => e.FortificationIdentifier)
                 .HasMaxLength(2)
                 .IsUnicode(false);
-            entity.Property(e => e.MainFoodDescription1)
+            entity.Property(e => e.MainFoodDescription)
                 .IsRequired()
                 .HasMaxLength(200)
-                .IsUnicode(false)
-                .HasColumnName("MainFoodDescription");
+                .IsUnicode(false);
             entity.Property(e => e.StartDt).HasColumnName("StartDT");
 
-            entity.HasOne(d => d.Version).WithMany(p => p.MainFoodDescriptions)
+            entity.HasOne(d => d.Version).WithMany(p => p.MainFoodDescs)
                 .HasForeignKey(d => d.VersionId)
                 .HasConstraintName("FK_MainFoodDesc_FnddsVersion");
         });
 
-        modelBuilder.Entity<MoistureFatAdjustment>(entity =>
+        modelBuilder.Entity<MoistNFatAdjust>(entity =>
         {
             entity.HasKey(e => new { e.FoodCode, e.VersionId });
 
@@ -309,12 +308,12 @@ public partial class FnddsDbContext : DbContext
             entity.Property(e => e.MoistureChange).HasColumnType("decimal(5, 1)");
             entity.Property(e => e.StartDt).HasColumnName("StartDT");
 
-            entity.HasOne(d => d.MainFoodDescription).WithOne(p => p.MoistureFatAdjustment)
-                .HasForeignKey<MoistureFatAdjustment>(d => new { d.FoodCode, d.VersionId })
+            entity.HasOne(d => d.MainFoodDesc).WithOne(p => p.MoistNFatAdjust)
+                .HasForeignKey<MoistNFatAdjust>(d => new { d.FoodCode, d.VersionId })
                 .HasConstraintName("FK_MoistNFatAdjust_MainFoodDesc");
         });
 
-        modelBuilder.Entity<NutrientDescription>(entity =>
+        modelBuilder.Entity<NutDesc>(entity =>
         {
             entity.HasKey(e => new { e.NutrientCode, e.VersionId });
 
@@ -324,11 +323,10 @@ public partial class FnddsDbContext : DbContext
             entity.Property(e => e.CreateDt)
                 .HasDefaultValueSql("(getutcdate())")
                 .HasColumnName("CreateDT");
-            entity.Property(e => e.NutrientDescription1)
+            entity.Property(e => e.NutrientDescription)
                 .IsRequired()
                 .HasMaxLength(45)
-                .IsUnicode(false)
-                .HasColumnName("NutrientDescription");
+                .IsUnicode(false);
             entity.Property(e => e.Tagname)
                 .HasMaxLength(15)
                 .IsUnicode(false);
@@ -337,12 +335,12 @@ public partial class FnddsDbContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.Version).WithMany(p => p.NutrientDescriptions)
+            entity.HasOne(d => d.Version).WithMany(p => p.NutDescs)
                 .HasForeignKey(d => d.VersionId)
                 .HasConstraintName("FK_NutDesc_FnddsVersion");
         });
 
-        modelBuilder.Entity<SubcodeDescription>(entity =>
+        modelBuilder.Entity<SubcodeDesc>(entity =>
         {
             entity.HasKey(e => new { e.Subcode, e.VersionId });
 
@@ -354,13 +352,12 @@ public partial class FnddsDbContext : DbContext
                 .HasColumnName("CreateDT");
             entity.Property(e => e.EndDt).HasColumnName("EndDT");
             entity.Property(e => e.StartDt).HasColumnName("StartDT");
-            entity.Property(e => e.SubcodeDescription1)
+            entity.Property(e => e.SubcodeDescription)
                 .IsRequired()
                 .HasMaxLength(80)
-                .IsUnicode(false)
-                .HasColumnName("SubcodeDescription");
+                .IsUnicode(false);
 
-            entity.HasOne(d => d.Version).WithMany(p => p.SubcodeDescriptions)
+            entity.HasOne(d => d.Version).WithMany(p => p.SubcodeDescs)
                 .HasForeignKey(d => d.VersionId)
                 .HasConstraintName("FK_SubcodeDesc_FnddsVersion");
         });

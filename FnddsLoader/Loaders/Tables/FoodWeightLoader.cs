@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Threading.Tasks;
-using Fndds.Models;
-using FnddsLoader.Data;
-using FnddsLoader.Data.Models;
+using FnddsData.Fndds.Models;
+using FnddsData.FnddsLoader.Contexts;
+using FnddsData.FnddsLoader.Entities;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace FnddsLoader.Loaders.Tables;
+namespace FnddsData.FnddsLoader.Loaders.Tables;
 
 /// <summary>
 /// This class contains functionaility for loading data for the food weights table.
 /// </summary>
-public class FoodWeightsLoader : DataLoader
+public class FoodWeightLoader : DataLoader
 {
     /// <summary>
     /// The table name in the source database.
@@ -23,8 +20,8 @@ public class FoodWeightsLoader : DataLoader
     /// <summary>
     /// The logger class.
     /// </summary>
-    private static readonly ILogger<FoodWeightsLoader> _logger =
-        new NLogLoggerFactory().CreateLogger<FoodWeightsLoader>();
+    private static readonly ILogger<FoodWeightLoader> _logger =
+        new NLogLoggerFactory().CreateLogger<FoodWeightLoader>();
 
     /// <summary>
     /// True if the logger is debug endabled; otherwise, false.
@@ -37,7 +34,7 @@ public class FoodWeightsLoader : DataLoader
     /// <param name="version">The FNDDS version.</param>
     /// <param name="connection">The connection to the source database.</param>
     /// <param name="context">The destination database context.</param>
-    public FoodWeightsLoader(FnddsVersion version, OleDbConnection connection, FnddsContext context)
+    public FoodWeightLoader(FnddsVersion version, OleDbConnection connection, FnddsDbContext context)
         : base(version, connection, context)
     {
         _isDebugEnabled = _logger.IsEnabled(LogLevel.Debug);
@@ -45,61 +42,60 @@ public class FoodWeightsLoader : DataLoader
 
     /// <inheritdoc />
     public override IEnumerable<DataColumnModel> Columns =>
-        new List<DataColumnModel>
-        {
+        [
             new DataColumnModel
             {
                 SourceName = "[Food code]",
                 DestinationName = "FoodCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Subcode]",
                 DestinationName = "Subcode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[Seq num]",
                 DestinationName = "SeqNum",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Portion code]",
                 DestinationName = "PortionCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Start date]",
-                DestinationName = "StartDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                DestinationName = "StartDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[End date]",
-                DestinationName = "EndDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                DestinationName = "EndDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[Portion weight]",
                 DestinationName = "PortionWeight",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Change type]",
                 DestinationName = "ChangeType",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32 }
+                Versions = [1, 2, 4, 8, 16, 32]
             },
-        };
+        ];
 
     /// <inheritdoc />
     public override string TableName => SourceTableName;
@@ -107,15 +103,15 @@ public class FoodWeightsLoader : DataLoader
     /// <inheritdoc />
     public override async Task<int> CreateRecordsAsync(IEnumerable<DataColumnModel> columns, OleDbDataReader reader)
     {
-        var weights = new List<FoodWeights>();
+        var weights = new List<FoodWeight>();
 
         var recordCount = 0;
         while (reader.Read())
         {
-            var weight = new FoodWeights
+            var weight = new FoodWeight
             {
-                Version = FnddsVersion.Id,
-                Created = DateTime.Now
+                VersionId = FnddsVersion.Id,
+                CreateDt = DateTime.UtcNow
             };
 
             SetModelValues(columns, reader, weight);

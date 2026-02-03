@@ -11,12 +11,12 @@ namespace FnddsData.Fndds.Services;
 /// The class contains functionality for loading data from the source database into
 /// a destination database table.
 /// </summary>
-public abstract class BaseDataLoader
+public abstract class DataLoaderBase
 {
     /// <summary>
     /// The logger class.
     /// </summary>
-    private static readonly ILogger<BaseDataLoader> _logger = new NLogLoggerFactory().CreateLogger<BaseDataLoader>();
+    private static readonly ILogger<DataLoaderBase> _logger = new NLogLoggerFactory().CreateLogger<DataLoaderBase>();
 
     /// <summary>
     /// The default batch size for the data loader.

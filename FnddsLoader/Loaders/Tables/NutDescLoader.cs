@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Threading.Tasks;
-using Fndds.Models;
-using FnddsLoader.Data;
-using FnddsLoader.Data.Models;
-using FnddsLoader.Loaders;
+using FnddsData.Fndds.Models;
+using FnddsData.FnddsLoader.Contexts;
+using FnddsData.FnddsLoader.Entities;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace FnddsLoader.Loader.Tables;
+namespace FnddsData.FnddsLoader.Loaders.Tables;
 
 /// <summary>
 /// This class contains functionaility for loading data for the nutrient
@@ -38,7 +34,7 @@ public class NutDescLoader : DataLoader
     /// <param name="version">The FNDDS version.</param>
     /// <param name="connection">The connection to the source database.</param>
     /// <param name="context">The destination database context.</param>
-    public NutDescLoader(FnddsVersion version, OleDbConnection connection, FnddsContext context)
+    public NutDescLoader(FnddsVersion version, OleDbConnection connection, FnddsDbContext context)
         : base(version, connection, context)
     {
         _isDebugEnabled = _logger.IsEnabled(LogLevel.Debug);
@@ -46,40 +42,39 @@ public class NutDescLoader : DataLoader
 
     /// <inheritdoc />
     public override IEnumerable<DataColumnModel> Columns =>
-        new List<DataColumnModel>
-        {
+        [
             new DataColumnModel
             {
                 SourceName = "[Nutrient code]",
                 DestinationName = "NutrientCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Nutrient description]",
                 DestinationName = "NutrientDescription",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "Tagname",
                 DestinationName = "Tagname",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "Unit",
                 DestinationName = "Unit",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "Decimals",
                 DestinationName = "Decimals",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
-        };
+        ];
 
     /// <inheritdoc />
     public override string TableName => SourceTableName;
@@ -94,8 +89,8 @@ public class NutDescLoader : DataLoader
         {
             var nutrient = new NutDesc
             {
-                Version = FnddsVersion.Id,
-                Created = DateTime.Now
+                VersionId = FnddsVersion.Id,
+                CreateDt = DateTime.UtcNow
             };
 
             SetModelValues(columns, reader, nutrient);
@@ -110,7 +105,7 @@ public class NutDescLoader : DataLoader
 
             if (nutrients.Count > BatchSize)
             {
-                Context.NutDesc.AddRange(nutrients);
+                Context.NutDescs.AddRange(nutrients);
 
                 await Context.SaveChangesAsync();
 
@@ -120,7 +115,7 @@ public class NutDescLoader : DataLoader
             recordCount++;
         }
 
-        Context.NutDesc.AddRange(nutrients);
+        Context.NutDescs.AddRange(nutrients);
 
         await Context.SaveChangesAsync();
 

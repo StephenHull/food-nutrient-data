@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Threading.Tasks;
-using Fndds.Models;
-using FnddsLoader.Data;
-using FnddsLoader.Data.Models;
-using FnddsLoader.Loaders;
+using FnddsData.Fndds.Models;
+using FnddsData.FnddsLoader.Contexts;
+using FnddsData.FnddsLoader.Entities;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace FnddsLoader.Loader.Tables;
+namespace FnddsData.FnddsLoader.Loaders.Tables;
 
 /// <summary>
 /// This class contains functionaility for loading data for the moisture and fat
@@ -34,7 +30,7 @@ public class MoistNFatAdjustLoader : DataLoader
     /// <param name="version">The FNDDS version.</param>
     /// <param name="connection">The connection to the source database.</param>
     /// <param name="context">The destination database context.</param>
-    public MoistNFatAdjustLoader(FnddsVersion version, OleDbConnection connection, FnddsContext context)
+    public MoistNFatAdjustLoader(FnddsVersion version, OleDbConnection connection, FnddsDbContext context)
         : base(version, connection, context)
     {
         _isDebugEnabled = _logger.IsEnabled(LogLevel.Debug);
@@ -42,46 +38,45 @@ public class MoistNFatAdjustLoader : DataLoader
 
     /// <inheritdoc />
     public override IEnumerable<DataColumnModel> Columns =>
-        new List<DataColumnModel>
-        {
+        [
             new DataColumnModel
             {
                 SourceName = "[Food code]",
                 DestinationName = "FoodCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Start date]",
-                DestinationName = "StartDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                DestinationName = "StartDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[End date]",
-                DestinationName = "EndDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                DestinationName = "EndDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[Moisture change]",
                 DestinationName = "MoistureChange",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Fat change]",
                 DestinationName = "FatChange",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64 }
+                Versions = [1, 2, 4, 8, 16, 32, 64]
             },
             new DataColumnModel
             {
                 SourceName = "[Type of fat]",
                 DestinationName = "TypeOfFat",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64 }
+                Versions = [1, 2, 4, 8, 16, 32, 64]
             },
-        };
+        ];
 
     /// <inheritdoc />
     public override string TableName
@@ -91,7 +86,7 @@ public class MoistNFatAdjustLoader : DataLoader
             return FnddsVersion.Id switch
             {
                 1 or 2 or 4 or 8 or 16 or 32 or 64 => "MoistNFatAdjust",
-                128 or 256 or 512 => "MoistAdjust",
+                128 or 256 or 512 or 1024 => "MoistAdjust",
                 _ => string.Empty,
             };
         }
@@ -107,8 +102,8 @@ public class MoistNFatAdjustLoader : DataLoader
         {
             var adjust = new MoistNFatAdjust
             {
-                Version = FnddsVersion.Id,
-                Created = DateTime.Now
+                VersionId = FnddsVersion.Id,
+                CreateDt = DateTime.UtcNow
             };
 
             SetModelValues(columns, reader, adjust);
@@ -122,7 +117,7 @@ public class MoistNFatAdjustLoader : DataLoader
 
             if (adjusts.Count > BatchSize)
             {
-                Context.MoistNFatAdjust.AddRange(adjusts);
+                Context.MoistNFatAdjusts.AddRange(adjusts);
 
                 await Context.SaveChangesAsync();
 
@@ -134,7 +129,7 @@ public class MoistNFatAdjustLoader : DataLoader
 
         if (adjusts.Count > 0)
         {
-            Context.MoistNFatAdjust.AddRange(adjusts);
+            Context.MoistNFatAdjusts.AddRange(adjusts);
 
             await Context.SaveChangesAsync();
         }

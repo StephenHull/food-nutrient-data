@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Threading.Tasks;
-using Fndds.Models;
-using FnddsLoader.Data;
-using FnddsLoader.Data.Models;
+using FnddsData.Fndds.Models;
+using FnddsData.FnddsLoader.Contexts;
+using FnddsData.FnddsLoader.Entities;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace FnddsLoader.Loaders.Tables;
+namespace FnddsData.FnddsLoader.Loaders.Tables;
 
 /// <summary>
 /// This class contains functionaility for loading data for the ingredient nutrient
@@ -38,7 +35,7 @@ public class IngredNutValLoader : DataLoader
     /// <param name="version">The FNDDS version.</param>
     /// <param name="connection">The connection to the source database.</param>
     /// <param name="context">The destination database context.</param>
-    public IngredNutValLoader(FnddsVersion version, OleDbConnection connection, FnddsContext context)
+    public IngredNutValLoader(FnddsVersion version, OleDbConnection connection, FnddsDbContext context)
         : base(version, connection, context)
     {
         _isDebugEnabled = _logger.IsEnabled(LogLevel.Debug);
@@ -46,99 +43,98 @@ public class IngredNutValLoader : DataLoader
 
     /// <inheritdoc />
     public override IEnumerable<DataColumnModel> Columns =>
-        new List<DataColumnModel>
-        {
+        [
             new DataColumnModel
             {
                 SourceName = "[Ingredient code]",
                 DestinationName = "IngredientCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 128, 256, 512 }
+                Versions = [128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Nutrient code]",
                 DestinationName = "NutrientCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 128, 256, 512 }
+                Versions = [128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Start date]",
-                DestinationName = "StartDate",
-                Versions = new HashSet<int> { 128, 256, 512 }
+                DestinationName = "StartDT",
+                Versions = [128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[End date]",
-                DestinationName = "EndDate",
-                Versions = new HashSet<int> { 128, 256, 512 }
+                DestinationName = "EndDT",
+                Versions = [128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[SR description]",
                 DestinationName = "IngredientDescription",
-                Versions = new HashSet<int> { 128 }
+                Versions = [128]
             },
             new DataColumnModel
             {
                 SourceName = "[Ingredient description]",
                 DestinationName = "IngredientDescription",
-                Versions = new HashSet<int> { 256, 512 }
+                Versions = [256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Nutrient value]",
                 DestinationName = "NutrientValue",
-                Versions = new HashSet<int> { 128, 256, 512 }
+                Versions = [128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Nutrient value source]",
                 DestinationName = "NutrientValueSource",
-                Versions = new HashSet<int> { 128, 256, 512 }
+                Versions = [128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[FDC ID]",
                 DestinationName = "FdcId",
-                Versions = new HashSet<int> { 256, 512 }
+                Versions = [256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[SR 28 derivation code]",
                 DestinationName = "DerivationCode",
-                Versions = new HashSet<int> { 128 }
+                Versions = [128]
             },
             new DataColumnModel
             {
                 SourceName = "[Derivation code]",
                 DestinationName = "DerivationCode",
-                Versions = new HashSet<int> { 256, 512 }
+                Versions = [256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[SR 28 AddMod year]",
-                DestinationName = "SrAddModYear",
-                Versions = new HashSet<int> { 128 }
+                DestinationName = "SRAddModYear",
+                Versions = [128]
             },
             new DataColumnModel
             {
                 SourceName = "[SR AddMod year]",
-                DestinationName = "SrAddModYear",
-                Versions = new HashSet<int> { 256, 512 }
+                DestinationName = "SRAddModYear",
+                Versions = [256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Foundation year acquired]",
                 DestinationName = "FoundationYearAcquired",
-                Versions = new HashSet<int> { 256, 512 }
+                Versions = [256, 512, 1024]
             },
-        };
+        ];
 
     public override string TableName => SourceTableName;
 
-    public async override Task<int> CreateRecordsAsync(IEnumerable<DataColumnModel> columns, OleDbDataReader reader)
+    public override async Task<int> CreateRecordsAsync(IEnumerable<DataColumnModel> columns, OleDbDataReader reader)
     {
         var nutrients = new List<IngredNutVal>();
 
@@ -147,8 +143,8 @@ public class IngredNutValLoader : DataLoader
         {
             var nutrient = new IngredNutVal
             {
-                Version = FnddsVersion.Id,
-                Created = DateTime.Now
+                VersionId = FnddsVersion.Id,
+                CreateDt = DateTime.UtcNow
             };
 
             SetModelValues(columns, reader, nutrient);
@@ -163,7 +159,7 @@ public class IngredNutValLoader : DataLoader
 
             if (nutrients.Count > BatchSize)
             {
-                Context.IngredNutVal.AddRange(nutrients);
+                Context.IngredNutVals.AddRange(nutrients);
 
                 await Context.SaveChangesAsync();
 
@@ -175,7 +171,7 @@ public class IngredNutValLoader : DataLoader
 
         if (nutrients.Count > 0)
         {
-            Context.IngredNutVal.AddRange(nutrients);
+            Context.IngredNutVals.AddRange(nutrients);
 
             await Context.SaveChangesAsync();
         }

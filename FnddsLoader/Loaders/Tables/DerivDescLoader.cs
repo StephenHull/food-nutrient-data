@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Threading.Tasks;
-using Fndds.Models;
-using FnddsLoader.Data;
-using FnddsLoader.Data.Models;
+using FnddsData.Fndds.Models;
+using FnddsData.FnddsLoader.Contexts;
+using FnddsData.FnddsLoader.Entities;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace FnddsLoader.Loaders.Tables;
+namespace FnddsData.FnddsLoader.Loaders.Tables;
 
 /// <summary>
 /// This class contains functionaility for loading data for the derivation
@@ -37,7 +34,7 @@ public class DerivDescLoader : DataLoader
     /// <param name="version">The FNDDS version.</param>
     /// <param name="connection">The connection to the source database.</param>
     /// <param name="context">The destination database context.</param>
-    public DerivDescLoader(FnddsVersion version, OleDbConnection connection, FnddsContext context)
+    public DerivDescLoader(FnddsVersion version, OleDbConnection connection, FnddsDbContext context)
         : base(version, connection, context)
     {
         _isDebugEnabled = _logger.IsEnabled(LogLevel.Debug);
@@ -45,35 +42,34 @@ public class DerivDescLoader : DataLoader
 
     /// <inheritdoc />
     public override IEnumerable<DataColumnModel> Columns =>
-        new List<DataColumnModel>
-        {
+        [
             new DataColumnModel
             {
                 SourceName = "[SR 28 derivation code]",
                 DestinationName = "DerivationCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 128 }
+                Versions = [128]
             },
             new DataColumnModel
             {
                 SourceName = "[Derivation code]",
                 DestinationName = "DerivationCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 256, 512 }
+                Versions = [256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[SR 28 derivation description]",
                 DestinationName = "DerivationDescription",
-                Versions = new HashSet<int> { 128 }
+                Versions = [128]
             },
             new DataColumnModel
             {
                 SourceName = "[Derivation description]",
                 DestinationName = "DerivationDescription",
-                Versions = new HashSet<int> { 256, 512 }
+                Versions = [256, 512, 1024]
             },
-        };
+        ];
 
     /// <inheritdoc />
     public override string TableName => SourceTableName;
@@ -88,8 +84,8 @@ public class DerivDescLoader : DataLoader
         {
             var derivation = new DerivDesc
             {
-                Version = FnddsVersion.Id,
-                Created = DateTime.Now
+                VersionId = FnddsVersion.Id,
+                CreateDt = DateTime.UtcNow
             };
 
             SetModelValues(columns, reader, derivation);
@@ -104,7 +100,7 @@ public class DerivDescLoader : DataLoader
 
             if (derivations.Count > BatchSize)
             {
-                Context.DerivDesc.AddRange(derivations);
+                Context.DerivDescs.AddRange(derivations);
 
                 await Context.SaveChangesAsync();
 
@@ -114,7 +110,7 @@ public class DerivDescLoader : DataLoader
             recordCount++;
         }
 
-        Context.DerivDesc.AddRange(derivations);
+        Context.DerivDescs.AddRange(derivations);
 
         await Context.SaveChangesAsync();
 

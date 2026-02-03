@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FnddsData.FnddsLoader.Entities;
 
-public partial class SubcodeDescription
+public partial class SubcodeDesc
 {
     public int Subcode { get; set; }
 
@@ -15,7 +15,7 @@ public partial class SubcodeDescription
 
     public DateTime? EndDt { get; set; }
 
-    public string SubcodeDescription1 { get; set; }
+    public string SubcodeDescription { get; set; }
 
     public DateTime CreateDt { get; set; }
 

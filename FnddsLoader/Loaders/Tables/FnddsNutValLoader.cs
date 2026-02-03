@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Threading.Tasks;
-using Fndds.Models;
-using FnddsLoader.Data;
-using FnddsLoader.Data.Models;
+using FnddsData.Fndds.Models;
+using FnddsData.FnddsLoader.Contexts;
+using FnddsData.FnddsLoader.Entities;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace FnddsLoader.Loaders.Tables;
+namespace FnddsData.FnddsLoader.Loaders.Tables;
 
 /// <summary>
 /// This class contains functionaility for loading data for the FNDDS nutrient
@@ -38,7 +35,7 @@ public class FnddsNutValLoader : DataLoader
     /// <param name="version">The FNDDS version.</param>
     /// <param name="connection">The connection to the source database.</param>
     /// <param name="context">The destination database context.</param>
-    public FnddsNutValLoader(FnddsVersion version, OleDbConnection connection, FnddsContext context)
+    public FnddsNutValLoader(FnddsVersion version, OleDbConnection connection, FnddsDbContext context)
         : base(version, connection, context)
     {
         _isDebugEnabled = _logger.IsEnabled(LogLevel.Debug);
@@ -46,41 +43,40 @@ public class FnddsNutValLoader : DataLoader
 
     /// <inheritdoc />
     public override IEnumerable<DataColumnModel> Columns =>
-        new List<DataColumnModel>
-        {
+        [
             new DataColumnModel
             {
                 SourceName = "[Food code]",
                 DestinationName = "FoodCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Nutrient code]",
                 DestinationName = "NutrientCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Start date]",
-                DestinationName = "StartDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                DestinationName = "StartDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[End date]",
-                DestinationName = "EndDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                DestinationName = "EndDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[Nutrient value]",
                 DestinationName = "NutrientValue",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
-        };
+        ];
 
     /// <inheritdoc />
     public override string TableName => SourceTableName;
@@ -95,8 +91,8 @@ public class FnddsNutValLoader : DataLoader
         {
             var nutrient = new FnddsNutVal
             {
-                Version = FnddsVersion.Id,
-                Created = DateTime.Now
+                VersionId = FnddsVersion.Id,
+                CreateDt = DateTime.UtcNow
             };
 
             SetModelValues(columns, reader, nutrient);
@@ -111,7 +107,7 @@ public class FnddsNutValLoader : DataLoader
 
             if (nutrients.Count > BatchSize)
             {
-                Context.FnddsNutVal.AddRange(nutrients);
+                Context.FnddsNutVals.AddRange(nutrients);
 
                 await Context.SaveChangesAsync();
 
@@ -123,7 +119,7 @@ public class FnddsNutValLoader : DataLoader
 
         if (nutrients.Count > 0)
         {
-            Context.FnddsNutVal.AddRange(nutrients);
+            Context.FnddsNutVals.AddRange(nutrients);
 
             await Context.SaveChangesAsync();
         }

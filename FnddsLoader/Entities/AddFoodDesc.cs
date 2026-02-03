@@ -5,9 +5,11 @@ using System.Collections.Generic;
 
 namespace FnddsData.FnddsLoader.Entities;
 
-public partial class MoistureFatAdjustment
+public partial class AddFoodDesc
 {
     public int FoodCode { get; set; }
+
+    public int SeqNum { get; set; }
 
     public int VersionId { get; set; }
 
@@ -15,13 +17,9 @@ public partial class MoistureFatAdjustment
 
     public DateTime? EndDt { get; set; }
 
-    public decimal? MoistureChange { get; set; }
-
-    public decimal? FatChange { get; set; }
-
-    public int? TypeOfFat { get; set; }
+    public string AdditionalFoodDescription { get; set; }
 
     public DateTime CreateDt { get; set; }
 
-    public virtual MainFoodDescription MainFoodDescription { get; set; }
+    public virtual MainFoodDesc MainFoodDesc { get; set; }
 }

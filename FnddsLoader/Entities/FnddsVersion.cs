@@ -19,13 +19,13 @@ public partial class FnddsVersion
 
     public DateTime CreateDt { get; set; }
 
-    public virtual ICollection<DerivDescription> DerivDescriptions { get; set; } = new List<DerivDescription>();
+    public virtual ICollection<DerivDesc> DerivDescs { get; set; } = new List<DerivDesc>();
 
-    public virtual ICollection<FoodPortionDescription> FoodPortionDescriptions { get; set; } = new List<FoodPortionDescription>();
+    public virtual ICollection<FoodPortionDesc> FoodPortionDescs { get; set; } = new List<FoodPortionDesc>();
 
-    public virtual ICollection<MainFoodDescription> MainFoodDescriptions { get; set; } = new List<MainFoodDescription>();
+    public virtual ICollection<MainFoodDesc> MainFoodDescs { get; set; } = new List<MainFoodDesc>();
 
-    public virtual ICollection<NutrientDescription> NutrientDescriptions { get; set; } = new List<NutrientDescription>();
+    public virtual ICollection<NutDesc> NutDescs { get; set; } = new List<NutDesc>();
 
-    public virtual ICollection<SubcodeDescription> SubcodeDescriptions { get; set; } = new List<SubcodeDescription>();
+    public virtual ICollection<SubcodeDesc> SubcodeDescs { get; set; } = new List<SubcodeDesc>();
 }

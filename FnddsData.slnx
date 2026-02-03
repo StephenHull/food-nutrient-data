@@ -3,5 +3,6 @@
     <Build />
     <Deploy />
   </Project>
+  <Project Path="Fndds/Fndds.csproj" Id="8d82d705-6cd3-443e-948a-52b27f3e275d" />
   <Project Path="FnddsLoader/FnddsLoader.csproj" />
 </Solution>

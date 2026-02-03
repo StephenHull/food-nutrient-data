@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FnddsData.FnddsLoader.Entities;
 
-public partial class MainFoodDescription
+public partial class MainFoodDesc
 {
     public int FoodCode { get; set; }
 
@@ -15,7 +15,7 @@ public partial class MainFoodDescription
 
     public DateTime? EndDt { get; set; }
 
-    public string MainFoodDescription1 { get; set; }
+    public string MainFoodDescription { get; set; }
 
     public string AbbreviatedMainFoodDescription { get; set; }
 
@@ -27,15 +27,15 @@ public partial class MainFoodDescription
 
     public DateTime CreateDt { get; set; }
 
-    public virtual ICollection<AddFoodDescription> AddFoodDescriptions { get; set; } = new List<AddFoodDescription>();
+    public virtual ICollection<AddFoodDesc> AddFoodDescs { get; set; } = new List<AddFoodDesc>();
 
-    public virtual ICollection<FnddsIngredient> FnddsIngredients { get; set; } = new List<FnddsIngredient>();
+    public virtual ICollection<FnddsIngred> FnddsIngreds { get; set; } = new List<FnddsIngred>();
 
-    public virtual ICollection<FnddsNutrientValue> FnddsNutrientValues { get; set; } = new List<FnddsNutrientValue>();
+    public virtual ICollection<FnddsNutVal> FnddsNutVals { get; set; } = new List<FnddsNutVal>();
 
     public virtual ICollection<FoodWeight> FoodWeights { get; set; } = new List<FoodWeight>();
 
-    public virtual MoistureFatAdjustment MoistureFatAdjustment { get; set; }
+    public virtual MoistNFatAdjust MoistNFatAdjust { get; set; }
 
     public virtual FnddsVersion Version { get; set; }
 }

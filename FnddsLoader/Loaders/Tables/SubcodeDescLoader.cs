@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Threading.Tasks;
-using Fndds.Models;
-using FnddsLoader.Data;
-using FnddsLoader.Data.Models;
-using FnddsLoader.Loaders;
+using FnddsData.Fndds.Models;
+using FnddsData.FnddsLoader.Contexts;
+using FnddsData.FnddsLoader.Entities;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace FnddsLoader.Loader.Tables;
+namespace FnddsData.FnddsLoader.Loaders.Tables;
 
 /// <summary>
 /// This class contains functionaility for loading data for the subcode description
@@ -39,7 +35,7 @@ public class SubcodeDescLoader : DataLoader
     /// <param name="version">The FNDDS version.</param>
     /// <param name="connection">The connection to the source database.</param>
     /// <param name="context">The destination database context.</param>
-    public SubcodeDescLoader(FnddsVersion version, OleDbConnection connection, FnddsContext context)
+    public SubcodeDescLoader(FnddsVersion version, OleDbConnection connection, FnddsDbContext context)
         : base(version, connection, context)
     {
         _isDebugEnabled = _logger.IsEnabled(LogLevel.Debug);
@@ -47,34 +43,33 @@ public class SubcodeDescLoader : DataLoader
 
     /// <inheritdoc />
     public override IEnumerable<DataColumnModel> Columns =>
-        new List<DataColumnModel>
-        {
+        [
             new DataColumnModel
             {
                 SourceName = "[Subcode]",
                 DestinationName = "Subcode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[Start date]",
-                DestinationName = "StartDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256 }
+                DestinationName = "StartDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[End date]",
-                DestinationName = "EndDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256 }
+                DestinationName = "EndDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[Subcode description]",
-                DestinationName = "SubcodeDescription",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256 }
+                DestinationName = "SubcodeDesc",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
-        };
+        ];
 
     /// <inheritdoc />
     public override string TableName => SourceTableName;
@@ -89,8 +84,8 @@ public class SubcodeDescLoader : DataLoader
         {
             var subcode = new SubcodeDesc
             {
-                Version = FnddsVersion.Id,
-                Created = DateTime.Now
+                VersionId = FnddsVersion.Id,
+                CreateDt = DateTime.UtcNow
             };
 
             SetModelValues(columns, reader, subcode);
@@ -104,7 +99,7 @@ public class SubcodeDescLoader : DataLoader
 
             if (subcodes.Count > BatchSize)
             {
-                Context.SubcodeDesc.AddRange(subcodes);
+                Context.SubcodeDescs.AddRange(subcodes);
 
                 await Context.SaveChangesAsync();
 
@@ -116,7 +111,7 @@ public class SubcodeDescLoader : DataLoader
 
         if (subcodes.Count > 0)
         {
-            Context.SubcodeDesc.AddRange(subcodes);
+            Context.SubcodeDescs.AddRange(subcodes);
 
             await Context.SaveChangesAsync();
         }

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Threading.Tasks;
-using Fndds.Models;
-using FnddsLoader.Data;
-using FnddsLoader.Data.Models;
+using FnddsData.Fndds.Models;
+using FnddsData.FnddsLoader.Contexts;
+using FnddsData.FnddsLoader.Entities;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-namespace FnddsLoader.Loaders.Tables;
+namespace FnddsData.FnddsLoader.Loaders.Tables;
 
 /// <summary>
 /// This class contains functionaility for loading data for the food portion
@@ -38,7 +35,7 @@ public class FoodPortionDescLoader : DataLoader
     /// <param name="version">The FNDDS version.</param>
     /// <param name="connection">The connection to the source database.</param>
     /// <param name="context">The destination database context.</param>
-    public FoodPortionDescLoader(FnddsVersion version, OleDbConnection connection, FnddsContext context)
+    public FoodPortionDescLoader(FnddsVersion version, OleDbConnection connection, FnddsDbContext context)
         : base(version, connection, context)
     {
         _isDebugEnabled = _logger.IsEnabled(LogLevel.Debug);
@@ -46,40 +43,39 @@ public class FoodPortionDescLoader : DataLoader
 
     /// <inheritdoc />
     public override IEnumerable<DataColumnModel> Columns =>
-        new List<DataColumnModel>
-        {
+        [
             new DataColumnModel
             {
                 SourceName = "[Portion code]",
                 DestinationName = "PortionCode",
                 IsOrderedBy = true,
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Start date]",
-                DestinationName = "StartDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                DestinationName = "StartDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[End date]",
-                DestinationName = "EndDate",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                DestinationName = "EndDT",
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256]
             },
             new DataColumnModel
             {
                 SourceName = "[Portion description]",
                 DestinationName = "PortionDescription",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32, 64, 128, 256, 512 }
+                Versions = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
             },
             new DataColumnModel
             {
                 SourceName = "[Change type]",
                 DestinationName = "ChangeType",
-                Versions = new HashSet<int> { 1, 2, 4, 8, 16, 32 }
+                Versions = [1, 2, 4, 8, 16, 32]
             },
-        };
+        ];
 
     /// <inheritdoc />
     public override string TableName => SourceTableName;
@@ -94,8 +90,8 @@ public class FoodPortionDescLoader : DataLoader
         {
             var portion = new FoodPortionDesc
             {
-                Version = FnddsVersion.Id,
-                Created = DateTime.Now
+                VersionId = FnddsVersion.Id,
+                CreateDt = DateTime.UtcNow
             };
 
             SetModelValues(columns, reader, portion);
@@ -110,7 +106,7 @@ public class FoodPortionDescLoader : DataLoader
 
             if (portions.Count > BatchSize)
             {
-                Context.FoodPortionDesc.AddRange(portions);
+                Context.FoodPortionDescs.AddRange(portions);
 
                 await Context.SaveChangesAsync();
 
@@ -122,7 +118,7 @@ public class FoodPortionDescLoader : DataLoader
 
         if (portions.Count > 0)
         {
-            Context.FoodPortionDesc.AddRange(portions);
+            Context.FoodPortionDescs.AddRange(portions);
 
             await Context.SaveChangesAsync();
         }

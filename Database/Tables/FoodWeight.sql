@@ -16,7 +16,7 @@
         PRIMARY KEY
         (
             FoodCode,
-            SubCode,
+            Subcode,
             SeqNum,
             PortionCode,
             VersionID

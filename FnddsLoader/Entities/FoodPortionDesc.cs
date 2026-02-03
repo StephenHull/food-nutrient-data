@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FnddsData.FnddsLoader.Entities;
 
-public partial class FoodPortionDescription
+public partial class FoodPortionDesc
 {
     public int PortionCode { get; set; }
 
@@ -21,7 +21,7 @@ public partial class FoodPortionDescription
 
     public DateTime CreateDt { get; set; }
 
-    public virtual ICollection<FnddsIngredient> FnddsIngredients { get; set; } = new List<FnddsIngredient>();
+    public virtual ICollection<FnddsIngred> FnddsIngreds { get; set; } = new List<FnddsIngred>();
 
     public virtual ICollection<FoodWeight> FoodWeights { get; set; } = new List<FoodWeight>();
 

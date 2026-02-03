@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace FnddsData.FnddsLoader.Entities;
 
-public partial class IngredNutrientValue
+public partial class FnddsNutVal
 {
-    public int IngredientCode { get; set; }
+    public int FoodCode { get; set; }
 
     public int NutrientCode { get; set; }
 
@@ -17,21 +17,11 @@ public partial class IngredNutrientValue
 
     public DateTime? EndDt { get; set; }
 
-    public string IngredientDescription { get; set; }
-
     public decimal NutrientValue { get; set; }
-
-    public string NutrientValueSource { get; set; }
-
-    public int? FdcId { get; set; }
-
-    public string DerivationCode { get; set; }
-
-    public int? SRAddModYear { get; set; }
-
-    public int? FoundationYearAcquired { get; set; }
 
     public DateTime CreateDt { get; set; }
 
-    public virtual NutrientDescription NutrientDescription { get; set; }
+    public virtual MainFoodDesc MainFoodDesc { get; set; }
+
+    public virtual NutDesc NutDesc { get; set; }
 }

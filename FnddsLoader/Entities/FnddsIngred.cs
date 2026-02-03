@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace FnddsData.FnddsLoader.Entities;
 
-public partial class FnddsIngredient
+public partial class FnddsIngred
 {
     public int FoodCode { get; set; }
 
@@ -41,7 +41,7 @@ public partial class FnddsIngredient
 
     public DateTime CreateDt { get; set; }
 
-    public virtual FoodPortionDescription FoodPortionDescription { get; set; }
+    public virtual FoodPortionDesc FoodPortionDesc { get; set; }
 
-    public virtual MainFoodDescription MainFoodDescription { get; set; }
+    public virtual MainFoodDesc MainFoodDesc { get; set; }
 }

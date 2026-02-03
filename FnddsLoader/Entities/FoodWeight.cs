@@ -27,7 +27,7 @@ public partial class FoodWeight
 
     public DateTime CreateDt { get; set; }
 
-    public virtual FoodPortionDescription FoodPortionDescription { get; set; }
+    public virtual FoodPortionDesc FoodPortionDesc { get; set; }
 
-    public virtual MainFoodDescription MainFoodDescription { get; set; }
+    public virtual MainFoodDesc MainFoodDesc { get; set; }
 }

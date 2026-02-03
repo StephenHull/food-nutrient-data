@@ -1,22 +1,19 @@
-﻿using Fndds.Interfaces;
-using FnddsLoader.Data.Models;
+using FnddsData.Fndds.Interfaces;
 
-namespace Fndds.Extensions;
+namespace FnddsData.FnddsLoader.Entities;
 
-/// <summary>
-/// This class contains extension methods for an integer.
-/// </summary>
-public static class Int32Extensions
+public partial class FnddsVersion : IFnddsVersion
 {
-    /// <summary>
-    /// Returns the FNDDS version that matches the specified ID (or null if a match
-    /// cannot be found).
-    /// </summary>
-    /// <param name="id">The version ID.</param>
-    /// <returns>The FNDDS version.</returns>
-    public static IFnddsVersion GetVersion(this int id)
+    public static bool TryParse(string value, out FnddsVersion? version)
     {
-        return id switch
+        if (!int.TryParse(value, out var id))
+        {
+            version = null;
+
+            return false;
+        }
+
+        version = id switch
         {
             1 => new FnddsVersion
             {
@@ -98,7 +95,17 @@ public static class Int32Extensions
                 Major = 10,
                 Minor = 0
             },
+            1024 => new FnddsVersion
+            {
+                Id = id,
+                BeginYear = 2021,
+                EndYear = 2023,
+                Major = 11,
+                Minor = 0
+            },
             _ => default,
         };
+
+        return (version != null);
     }
 }
