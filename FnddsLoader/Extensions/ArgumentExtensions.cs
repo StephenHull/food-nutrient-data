@@ -6,7 +6,7 @@ namespace FnddsData.FnddsLoader.Extensions;
 
 public static partial class ArgumentExtensions
 {
-    [GeneratedRegex("Microsoft\\.Jet\\.OLEDB\\.4\\.0;Data Source=.+\\.mdb;Persist Security Info=False;")]
+    [GeneratedRegex("Microsoft\\.ACE\\.OLEDB\\.16\\.0;Data Source=.+\\.mdb;Persist Security Info=False;")]
     private static partial Regex ConnectionStringRegex();
 
     public static LoaderArguments GetArguments(this string[] args)
@@ -28,7 +28,7 @@ public static partial class ArgumentExtensions
             Console.WriteLine("         512 = FNDDS 2019-2020");
             Console.WriteLine("        1024 = FNDDS 2021-2023");
             Console.WriteLine("    ConnectionString: <string> - The Access database connection string.");
-            Console.WriteLine("        Example: Provider=Microsoft.Jet.OLEDB.4.0;Data Source=c:/FNDDS.mdb;Persist Security Info=False;");
+            Console.WriteLine("        Example: Provider=Microsoft.ACE.OLEDB.16.0;Data Source=c:/FNDDS.mdb;Persist Security Info=False;");
             Console.WriteLine("Usage: FnddsData.Loader <FnddsVersion> <ConnectionString>");
 
             throw new ArgumentException("No command-line arguments were specified.");
@@ -39,10 +39,10 @@ public static partial class ArgumentExtensions
             throw new ArgumentException("The FNDDS Version was invalid.");
         }
 
-        //if (!ConnectionStringRegex().IsMatch(args[1]))
-        //{
-        //    throw new ArgumentException("The Connection String was invalid.");
-        //}
+        if (!ConnectionStringRegex().IsMatch(args[1]))
+        {
+            throw new ArgumentException("The Connection String was invalid.");
+        }
 
         return new LoaderArguments
         {
