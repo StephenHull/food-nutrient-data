@@ -12,7 +12,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fndds\Fndds.csproj" />
+    <ProjectReference Include="..\Base\Base.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
