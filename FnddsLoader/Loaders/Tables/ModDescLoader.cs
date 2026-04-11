@@ -67,7 +67,7 @@ public class ModDescLoader : DataLoader
             new DataColumnModel
             {
                 SourceName = "[Start date]",
-                DestinationName = "StartDate",
+                DestinationName = "StartDt",
                 Versions =
                 [
                     16, 32,
@@ -76,7 +76,7 @@ public class ModDescLoader : DataLoader
             new DataColumnModel
             {
                 SourceName = "[End date]",
-                DestinationName = "EndDate",
+                DestinationName = "EndDt",
                 Versions =
                 [
                     16, 32,
