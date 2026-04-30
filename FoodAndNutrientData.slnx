@@ -11,4 +11,6 @@
     <Deploy />
   </Project>
   <Project Path="Importer/Importer.csproj" />
+  <Project Path="WebClient/WebClient.csproj" Id="ca01e273-50bf-41e7-a6ef-6d816623811d" />
+  <Project Path="WebServer/WebServer.csproj" Id="261f7ccf-3c28-4d25-b557-650ff48fe05f" />
 </Solution>
