@@ -1,4 +1,4 @@
-namespace FoodAndNutrientData.Web.Server.Components.Account;
+namespace FoodAndNutrientData.WebServer.Components.Account;
 
 public class PasskeyInputModel
 {

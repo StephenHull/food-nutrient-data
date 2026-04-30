@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace FoodAndNutrientData.Web.Server.Migrations
+namespace FoodAndNutrientData.WebServer.Migrations
 {
     /// <inheritdoc />
     public partial class CreateIdentitySchema : Migration

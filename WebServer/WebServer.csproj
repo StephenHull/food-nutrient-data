@@ -3,7 +3,7 @@
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>FoodAndNutrientData.Web.Server</RootNamespace>
+    <RootNamespace>FoodAndNutrientData.WebServer</RootNamespace>
     <TargetFramework>net10.0</TargetFramework>
     <UserSecretsId>aspnet-WebServer-449bae82-7aa9-4a6b-a2ff-56d1c92596ff</UserSecretsId>
   </PropertyGroup>
@@ -11,11 +11,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="10.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.7" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebClient\WebClient.csproj" />
+    <ProjectReference Include="..\WebLibrary\WebLibrary.csproj" />
   </ItemGroup>
 </Project>

@@ -1,8 +1,8 @@
-using FoodAndNutrientData.Web.Server.Data;
+using FoodAndNutrientData.WebServer.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace FoodAndNutrientData.Web.Server.Components.Account;
+namespace FoodAndNutrientData.WebServer.Components.Account;
 
 // Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.
 internal sealed class IdentityNoOpEmailSender : IEmailSender<ApplicationUser>

@@ -1,8 +1,8 @@
-using FoodAndNutrientData.Web.Server.Data;
+using FoodAndNutrientData.WebServer.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 
-namespace FoodAndNutrientData.Web.Server.Components.Account;
+namespace FoodAndNutrientData.WebServer.Components.Account;
 
 internal sealed class IdentityRedirectManager(NavigationManager navigationManager)
 {

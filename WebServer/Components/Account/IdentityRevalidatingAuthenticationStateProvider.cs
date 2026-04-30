@@ -1,11 +1,11 @@
 using System.Security.Claims;
-using FoodAndNutrientData.Web.Server.Data;
+using FoodAndNutrientData.WebServer.Data;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace FoodAndNutrientData.Web.Server.Components.Account;
+namespace FoodAndNutrientData.WebServer.Components.Account;
 
 // This is a server-side AuthenticationStateProvider that revalidates the security stamp for the connected user
 // every 30 minutes an interactive circuit is connected.

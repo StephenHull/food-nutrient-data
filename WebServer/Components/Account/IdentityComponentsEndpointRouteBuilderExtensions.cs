@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using System.Text.Json;
-using FoodAndNutrientData.Web.Server.Components.Account.Pages;
-using FoodAndNutrientData.Web.Server.Components.Account.Pages.Manage;
-using FoodAndNutrientData.Web.Server.Data;
+using FoodAndNutrientData.WebServer.Components.Account.Pages;
+using FoodAndNutrientData.WebServer.Components.Account.Pages.Manage;
+using FoodAndNutrientData.WebServer.Data;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;

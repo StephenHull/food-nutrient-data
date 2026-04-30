@@ -12,5 +12,6 @@
   </Project>
   <Project Path="Importer/Importer.csproj" />
   <Project Path="WebClient/WebClient.csproj" Id="ca01e273-50bf-41e7-a6ef-6d816623811d" />
+  <Project Path="WebLibrary/WebLibrary.csproj" Id="c42330ec-7c0c-4be2-8969-4353c87be3a7" />
   <Project Path="WebServer/WebServer.csproj" Id="261f7ccf-3c28-4d25-b557-650ff48fe05f" />
 </Solution>

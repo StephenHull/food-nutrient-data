@@ -1,6 +1,6 @@
-using FoodAndNutrientData.Web.Server.Components;
-using FoodAndNutrientData.Web.Server.Components.Account;
-using FoodAndNutrientData.Web.Server.Data;
+using FoodAndNutrientData.WebServer.Components;
+using FoodAndNutrientData.WebServer.Components.Account;
+using FoodAndNutrientData.WebServer.Data;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -63,7 +63,7 @@ app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(FoodAndNutrientData.Web.Client._Imports).Assembly);
+    .AddAdditionalAssemblies(typeof(FoodAndNutrientData.WebClient._Imports).Assembly);
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
